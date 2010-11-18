@@ -90,7 +90,7 @@ class Application extends Core_GetterSetter
     /**
      * Add tabs
      *
-     * @param   string  $filePath       Configuration file path
+     * @param   string      $filePath       Configuration file path
      * @throws  Exception                   Invalid configuration file
      */
     public function addTabs($filePath)
