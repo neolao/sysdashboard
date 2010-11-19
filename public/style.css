@@ -1,0 +1,35 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    display: block;
+    background-color: #507AAA;
+}
+    header h1 {
+        margin: 0 0 30px 0;
+        text-align: center;
+        color: #fff;
+    }
+
+nav {
+    display: block;
+}
+    nav ul {
+        list-style: none;
+        text-align: center;
+        padding: 2px;
+    }
+    nav ul li {
+        display: inline;
+        padding: 2px .5em;
+        background-color: #fff;
+    }
+
+article {
+    display: block;
+}
+    article > h1 {
+        display: none;
+    }

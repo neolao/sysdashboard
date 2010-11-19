@@ -1,4 +1,7 @@
 <?php
+/**
+ * The main application.
+ */
 class Application extends Core_GetterSetter
 {
     /**
@@ -57,10 +60,32 @@ class Application extends Core_GetterSetter
 
     /**
      * The application name
+     *
+     * @return  string  The application name
      */
     public function get_title()
     {
         return $this->_title;
+    }
+
+    /**
+     * Module list
+     *
+     * @return  array  Module list
+     */
+    public function get_modules()
+    {
+        return $this->_modules;
+    }
+
+    /**
+     * Tab list
+     *
+     * @return  array  Tab list
+     */
+    public function get_tabs()
+    {
+        return $this->_tabs;
     }
 
     /**
@@ -119,6 +144,9 @@ class Application extends Core_GetterSetter
         $content = file_get_contents($filePath);
         $json = json_decode($content);
 
-
+        foreach ($json as $tabName => $tabConfig) {
+            $tab = new Core_Tab($tabName, $tabConfig);
+            $this->_tabs[] = $tab;
+        }
     }
 }

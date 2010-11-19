@@ -9,13 +9,23 @@ $application = Application::getInstance();
         <link rel="stylesheet" type="text/css" href="style.css"/>
     </head>
     <body>
-        <h1><?php echo $application->title; ?></h1>
-        <nav role="primary navigation">
-            <ul>
-            <?php
-            ?>
-            </ul>
-        </nav>
+        <header>
+            <h1><?php echo $application->title; ?></h1>
+            <nav role="primary navigation">
+                <ul>
+                <?php
+                foreach ($application->tabs as $tab) {
+                    echo '<li>', $tab->name, '</li>';
+                }
+                ?>
+                </ul>
+            </nav>
+        </header>
+        <?php foreach ($application->tabs as $tab) { ?>
+        <article>
+            <h1><?php echo $tab->name; ?></h1>
+        </article>
+        <?php } ?>
     </body>
 </html>
 
