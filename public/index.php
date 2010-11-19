@@ -10,6 +10,12 @@ $application = Application::getInstance();
     </head>
     <body>
         <h1><?php echo $application->title; ?></h1>
+        <nav role="primary navigation">
+            <ul>
+            <?php
+            ?>
+            </ul>
+        </nav>
     </body>
 </html>
 

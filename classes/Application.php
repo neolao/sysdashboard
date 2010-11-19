@@ -15,6 +15,20 @@ class Application extends Core_GetterSetter
      */
     private $_title;
 
+    /**
+     * Module list
+     *
+     * @var array
+     */
+    private $_modules;
+
+    /**
+     * Tab list
+     *
+     * @var array
+     */
+    private $_tabs;
+
 
 
     /**
@@ -23,6 +37,8 @@ class Application extends Core_GetterSetter
     private function __constructor()
     {
         $this->_title = 'SYS DASHBOARD';
+        $this->_modules = array();
+        $this->_tabs = array();
     }
 
     /**
