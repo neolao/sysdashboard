@@ -14,8 +14,10 @@ $application = Application::getInstance();
             <nav role="primary navigation">
                 <ul>
                 <?php
+                $tabIndex = 0;
                 foreach ($application->tabs as $tab) {
-                    echo '<li>', $tab->name, '</li>';
+                    echo '<li><a href="#tab', $tabIndex, '">', $tab->name, '</a></li>', "\n";
+                    $tabIndex++;
                 }
                 ?>
                 </ul>

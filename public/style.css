@@ -1,3 +1,6 @@
+* {
+    font-family: monospace;
+}
 html, body {
     margin: 0;
     padding: 0;
@@ -21,10 +24,21 @@ nav {
         text-align: center;
         padding: 2px;
     }
-    nav ul li {
+    nav li {
         display: inline;
         padding: 2px .5em;
+        font-family: Verdana, sans-serif;
+        color: #ccc;
+    }
+    nav li.selected {
         background-color: #fff;
+        color: #000;
+    }
+    nav a {
+        font-family: inherit;
+        font-size: inherit;
+        text-decoration: none;
+        color: inherit;
     }
 
 article {
