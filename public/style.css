@@ -42,6 +42,9 @@ nav {
     }
 
 article {
+    display: none;
+}
+article.selected {
     display: block;
 }
     article > h1 {
