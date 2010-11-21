@@ -125,7 +125,6 @@ class Application extends Core_GetterSetter
         // Get the configuration content and unserialize it
         $content = file_get_contents($filePath);
         $json = json_decode($content);
-
     }
 
     /**
