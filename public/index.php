@@ -9,6 +9,7 @@ $tabCount = count($application->tabs);
         <title><?php echo $application->title; ?></title>
         <meta charset="utf-8" />
         <link rel="stylesheet" type="text/css" href="style.css"/>
+        <script type="text/javascript" src="ui.js"></script>
     </head>
     <body>
         <header>
@@ -23,7 +24,7 @@ $tabCount = count($application->tabs);
                     } else {
                         echo '<li>';
                     }
-                    echo '<a href="#tab', $index, '">', $tab->name, '</a></li>', "\n";
+                    echo '<a href="#tab', $index, '" onClick="changeTab(\'tab', $index, '\')">', $tab->name, '</a></li>', "\n";
                 }
                 ?>
                 </ul>
@@ -32,10 +33,11 @@ $tabCount = count($application->tabs);
         <?php
         for ($index = 0; $index < $tabCount; $index++) {
             $tab = $application->tabs[$index];
+            echo '<article id="tab', $index, '"';
             if ($index === 0) {
-                echo '<article class="selected">';
+                echo ' class="selected">';
             } else {
-                echo '<article>';
+                echo '>';
             }
             echo '<h1>', $tab->name, '</h1>';
             echo '</article>';
