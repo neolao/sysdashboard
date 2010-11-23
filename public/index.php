@@ -14,7 +14,7 @@ $tabCount = count($application->tabs);
     <body>
         <header>
             <h1><?php echo $application->title; ?></h1>
-            <nav role="primary navigation">
+            <nav id="tabs" role="primary navigation">
                 <ul>
                 <?php
                 for ($index = 0; $index < $tabCount; $index++) {
@@ -24,7 +24,7 @@ $tabCount = count($application->tabs);
                     } else {
                         echo '<li>';
                     }
-                    echo '<a href="#tab', $index, '" onClick="changeTab(\'tab', $index, '\')">', $tab->name, '</a></li>', "\n";
+                    echo '<a href="#tab', $index, '" rel="tab', $index, '" onClick="changeTab(\'tab', $index, '\')">', $tab->name, '</a></li>', "\n";
                 }
                 ?>
                 </ul>
