@@ -8,6 +8,11 @@ class Module_Text extends Core_Module
      * The text
      */
     private $_text;
+
+    /**
+     * Module width
+     */
+    private $_width;
     
     
     
@@ -20,7 +25,13 @@ class Module_Text extends Core_Module
     public function __construct($name, $config)
     {
         parent::__construct($name, $config);
-        
+
+        // Initialize width
+        if (isset($config->width)) {
+            $this->_width = $config->width;
+        }
+
+        // Initialize content
         if (isset($config->text)) {
             $this->_text = $config->text;
         } else {
@@ -39,4 +50,21 @@ class Module_Text extends Core_Module
     {
         return $this->_text;
     }
+
+
+
+    /**
+     * Get the module style
+     * 
+     * @return  string  Module style
+     */
+    public function getStyle()
+    {
+        if (!empty($this->_width)) {
+            return 'width: '.$this->_width.'px';
+        }
+
+        return '';
+    }
+
 }

@@ -18,6 +18,13 @@ class Core_Section extends Core_GetterSetter
      */
     private $_moduleNames;
 
+    /**
+     * Section layout
+     *
+     * @var string
+     */
+    private $_layout;
+
 
 
     /**
@@ -29,7 +36,14 @@ class Core_Section extends Core_GetterSetter
     public function __construct($name, $config)
     {
         $this->_name = $name;
-        
+
+        // Initialize layout
+        if (isset($config->layout)) {
+            $this->_layout = $config->layout;
+        } else {
+            $this->_layout = 'floatLeft';
+        }
+
         // Initialize sections
         if (isset($config->modules)) {
             $this->_moduleNames = $config->modules;
@@ -49,6 +63,18 @@ class Core_Section extends Core_GetterSetter
     public function get_name()
     {
         return $this->_name;
+    }
+
+
+
+    /**
+     * Section layout
+     *
+     * @return  string  Section layout
+     */
+    public function get_layout()
+    {
+        return $this->_layout;
     }
 
 

@@ -58,6 +58,11 @@ section {
     margin: 0 0 1em 0;
     position: relative;
     border: solid 2px #ddd;
+    clear: both;
+}
+section.layout_floatLeft .module {
+    float: left;
+    margin-right: 1em;
 }
     section > h1 {
         margin: 0;
@@ -69,3 +74,11 @@ section {
         color: #666;
         border: solid 2px #ddd;
     }
+    section > footer {
+        display: block;
+        clear: both;
+    }
+
+.module {
+    display: block;
+}

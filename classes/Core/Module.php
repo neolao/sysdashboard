@@ -47,4 +47,16 @@ class Core_Module extends Core_GetterSetter
     {
         return '';
     }
+
+
+
+    /**
+     * Get the module style
+     * 
+     * @return  string  Module style
+     */
+    public function getStyle()
+    {
+        return '';
+    }
 }

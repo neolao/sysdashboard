@@ -41,14 +41,23 @@ $tabCount = count($application->tabs);
             }
             echo '<h1>', $tab->name, '</h1>';
             foreach ($tab->sections as $section) {
-                echo '<section>';
+                echo '<section class="layout_', $section->layout, '">';
                 echo '<h1>', $section->name, '</h1>';
                 foreach ($section->moduleNames as $moduleName) {
                     $module = $application->modules[$moduleName];
                     if ($module instanceof Core_Module) {
+                        $moduleStyle = $module->getStyle();
+                        echo '<div class="module"';
+                        if (!empty($moduleStyle)) {
+                            echo ' style="', $moduleStyle, '">';
+                        } else {
+                            echo '>';
+                        }
                         echo $module->getHTML();
+                        echo '</div>';
                     }
                 }
+                echo '<footer></footer>';
                 echo '</section>';
             }
             echo '</article>';
