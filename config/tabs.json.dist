@@ -1,6 +1,18 @@
 {
     "tab 1":
     {
+        "Section 1":
+        {
+            "layout":"float",
+            "modules":["myText"]
+        },
+        "Section 2":
+        {
+            "layout":"float"
+        }
+    },
+    "tab 2":
+    {
 
     }
 }

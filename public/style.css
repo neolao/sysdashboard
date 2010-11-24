@@ -43,10 +43,29 @@ nav {
 
 article {
     display: none;
+    padding: 5px;
 }
 article.selected {
     display: block;
 }
     article > h1 {
         display: none;
+    }
+
+section {
+    display: block;
+    padding: 1.4em .7em .7em .7em;
+    margin: 0 0 1em 0;
+    position: relative;
+    border: solid 2px #ddd;
+}
+    section > h1 {
+        margin: 0;
+        padding: 0 .5em;
+        font-size: 1em;
+        position: absolute;
+        top: -.8em;
+        background-color: #fff;
+        color: #666;
+        border: solid 2px #ddd;
     }

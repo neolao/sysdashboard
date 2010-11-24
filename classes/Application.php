@@ -125,6 +125,25 @@ class Application extends Core_GetterSetter
         // Get the configuration content and unserialize it
         $content = file_get_contents($filePath);
         $json = json_decode($content);
+        
+        foreach ($json as $moduleName => $moduleConfig) {
+            // If the type is not defined, then it continues
+            if (!isset($moduleConfig->type)) {
+                continue;
+            }
+            
+            // If the type is not a class, then it continues
+            $moduleType = $moduleConfig->type;
+            if (!class_exists($moduleType)) {
+                continue;
+            }
+            
+            // Initialize the module
+            $module = new $moduleType($moduleName, $moduleConfig);
+            if ($module instanceof Core_Module) {
+                $this->_modules[$module->name] = $module;
+            }
+        }
     }
 
     /**

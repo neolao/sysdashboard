@@ -40,6 +40,17 @@ $tabCount = count($application->tabs);
                 echo '>';
             }
             echo '<h1>', $tab->name, '</h1>';
+            foreach ($tab->sections as $section) {
+                echo '<section>';
+                echo '<h1>', $section->name, '</h1>';
+                foreach ($section->moduleNames as $moduleName) {
+                    $module = $application->modules[$moduleName];
+                    if ($module instanceof Core_Module) {
+                        echo $module->getHTML();
+                    }
+                }
+                echo '</section>';
+            }
             echo '</article>';
         }
         ?>

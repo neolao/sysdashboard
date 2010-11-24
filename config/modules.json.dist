@@ -1,5 +1,7 @@
 {
-    "test_chart_pie":
+    "myText":
     {
+        "type":"Module_Text",
+        "text":"Hello world!"
     }
 }
