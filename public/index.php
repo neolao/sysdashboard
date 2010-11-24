@@ -1,6 +1,8 @@
 <?php
 require dirname(__FILE__).'/../bootstrap.php';
 $application = Application::getInstance();
+$application->addTabs(CONFIG_PATH.'/tabs.json');
+
 $tabCount = count($application->tabs);
 
 ?><!DOCTYPE html>

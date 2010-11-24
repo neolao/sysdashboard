@@ -50,10 +50,7 @@ class Core_Section extends Core_GetterSetter
         } else {
             $this->_moduleNames = array();
         }
-        
     }
-    
-    
     
     /**
      * Section name
@@ -65,8 +62,6 @@ class Core_Section extends Core_GetterSetter
         return $this->_name;
     }
 
-
-
     /**
      * Section layout
      *
@@ -76,8 +71,6 @@ class Core_Section extends Core_GetterSetter
     {
         return $this->_layout;
     }
-
-
 
     /**
      * Module names

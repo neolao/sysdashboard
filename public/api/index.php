@@ -1,4 +1,3 @@
 <?php
-require dirname(__FILE__).'/../../bootstrap.php';
-$application = Application::getInstance();
+include dirname(__FILE__).'/../../api.php';
 

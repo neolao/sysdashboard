@@ -39,8 +39,6 @@ class Core_Tab extends Core_GetterSetter
         }
     }
 
-
-
     /**
      * Tab name
      *
@@ -50,8 +48,6 @@ class Core_Tab extends Core_GetterSetter
     {
         return $this->_name;
     }
-
-
 
     /**
      * Sections

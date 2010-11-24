@@ -37,10 +37,22 @@ class Module_Text extends Core_Module
         } else {
             $this->_text = '';
         }
+        $data = parent::getData();
+        if (!empty($data)) {
+            $this->_text = $data;
+        }
     }
-    
-    
-    
+
+    /**
+     * Get the module data
+     *
+     * @return  mixed   Module data
+     */
+    public function getData()
+    {
+        return $this->_text;
+    }
+
     /**
      * Get the HTML display of the module
      * 
@@ -50,8 +62,6 @@ class Module_Text extends Core_Module
     {
         return $this->_text;
     }
-
-
 
     /**
      * Get the module style
