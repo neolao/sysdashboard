@@ -123,9 +123,10 @@ class Application extends Core_GetterSetter
         }
 
         // Get the configuration content and unserialize it
+        // TODO Check json content
         $content = file_get_contents($filePath);
         $json = json_decode($content);
-        
+
         foreach ($json as $moduleName => $moduleConfig) {
             // If the type is not defined, then it continues
             if (!isset($moduleConfig->type)) {
@@ -159,6 +160,7 @@ class Application extends Core_GetterSetter
         }
 
         // Get the configuration content and unserialize it
+        // TODO Check json content
         $content = file_get_contents($filePath);
         $json = json_decode($content);
 

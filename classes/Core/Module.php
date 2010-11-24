@@ -9,7 +9,17 @@ class Core_Module extends Core_GetterSetter
      *
      * @var string
      */
-    private $_name;
+    protected $_name;
+
+    /**
+     * File path of the module data
+     */
+    protected $_dataFilePath;
+
+    /**
+     * Directory path of the module public data
+     */
+    protected $_publicDirectoryPath;
 
 
 
@@ -22,8 +32,10 @@ class Core_Module extends Core_GetterSetter
     public function __construct($name, $config)
     {
         $this->_name = $name;
+        $this->_dataFilePath = DATA_PATH.'/'.$this->_name;
+        $this->_publicDirectoryPath = PUBLIC_PATH.'/data/'.$this->_name;
     }
-    
+
     /**
      * Module name
      *
@@ -41,9 +53,8 @@ class Core_Module extends Core_GetterSetter
      */
     public function getData()
     {
-        $dataFile = DATA_PATH.'/'.$this->_name;
-        if (file_exists($dataFile)) {
-            return file_get_contents($dataFile);
+        if (file_exists($this->_dataFilePath)) {
+            return file_get_contents($this->_dataFilePath);
         }
         return null;
     }
@@ -55,8 +66,7 @@ class Core_Module extends Core_GetterSetter
      */
     public function setData($data)
     {
-        $dataFile = DATA_PATH.'/'.$this->_name;
-        file_put_contents($dataFile, $data);
+        file_put_contents($this->_dataFilePath, $data);
     }
 
     /**
@@ -77,5 +87,15 @@ class Core_Module extends Core_GetterSetter
     public function getStyle()
     {
         return '';
+    }
+
+    /**
+     * Create the public directory
+     */
+    protected function _createPublicDirectory()
+    {
+        if (!is_dir($this->_publicDirectoryPath)) {
+            mkdir($this->_publicDirectoryPath, 0755, true);
+        }
     }
 }
