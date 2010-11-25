@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabs>
+    <tab name="tab 1">
+        <section name="Section 1" layout="horizontal">
+            <section name="Sub section" layout="vertical">
+                <module name="myPieChart"/>
+                <module name="myPieChart"/>
+            </section>
+            <section name="Sub section" layout="vertical">
+                <module name="myPieChart"/>
+                <module name="myPieChart"/>
+            </section>
+            <module name="myPieChart"/>
+            <module name="myPieChart"/>
+            <module name="myPieChart"/>
+            <module name="myPieChart"/>
+        </section>
+    </tab>
+</tabs>

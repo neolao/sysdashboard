@@ -160,12 +160,12 @@ class Application extends Core_GetterSetter
         }
 
         // Get the configuration content and unserialize it
-        // TODO Check json content
-        $content = file_get_contents($filePath);
-        $json = json_decode($content);
+        // TODO Check xml content
+        $xml = simplexml_load_file($filePath);
 
-        foreach ($json as $tabName => $tabConfig) {
-            $tab = new Core_Tab($tabName, $tabConfig);
+        foreach ($xml->children() as $tabXML) {
+            $tabName = $tabXML['name'];
+            $tab = new Core_Tab($tabName, $tabXML);
             $this->_tabs[] = $tab;
         }
     }

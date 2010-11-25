@@ -12,11 +12,11 @@ class Core_Section extends Core_GetterSetter
     private $_name;
     
     /**
-     * Module names, array of string
+     * List of Core_Section and/or Core_Module
      *
      * @var array
      */
-    private $_moduleNames;
+    private $_children;
 
     /**
      * Section layout
@@ -25,30 +25,57 @@ class Core_Section extends Core_GetterSetter
      */
     private $_layout;
 
+    /**
+     * Section style
+     *
+     * @var string
+     */
+    private $_style;
+
 
 
     /**
      * Constructor
      *
-     * @param   string  $name   Section name
-     * @param   object  $config Configuration object
+     * @param   string              $name       Section name
+     * @param   SimpleXMLElement    $config     Configuration XML
      */
     public function __construct($name, $config)
     {
         $this->_name = $name;
 
         // Initialize layout
-        if (isset($config->layout)) {
-            $this->_layout = $config->layout;
+        if (isset($config['layout'])) {
+            $this->_layout = (string) $config['layout'];
         } else {
-            $this->_layout = 'floatLeft';
+            $this->_layout = 'horizontal';
         }
 
-        // Initialize sections
-        if (isset($config->modules)) {
-            $this->_moduleNames = $config->modules;
+        // Initialize style
+        if (isset($config['style'])) {
+            $this->_style = (string) $config['style'];
         } else {
-            $this->_moduleNames = array();
+            $this->_style = '';
+        }
+
+        // Initialize children
+        $application = Application::getInstance();
+        $this->_children = array();
+        foreach ($config->children() as $child) {
+            $childType = $child->getName();
+            $childName = '';
+            if (isset($child['name'])) {
+                $childName = (string) $child['name'];
+            }
+            if ($childType === 'module') {
+                $module = $application->modules[$childName];
+                if ($module instanceof Core_Module) {
+                    $this->_children[] = $module;
+                }
+            } else {
+                $section = new Core_Section($childName, $child);
+                $this->_children[] = $section;
+            }
         }
     }
     
@@ -73,12 +100,22 @@ class Core_Section extends Core_GetterSetter
     }
 
     /**
-     * Module names
+     * Section style
      *
-     * @return  array   Module names
+     * @return  string  Section style
      */
-    public function get_moduleNames()
+    public function get_style()
     {
-        return $this->_moduleNames;
+        return $this->_style;
+    }
+
+    /**
+     * Children
+     *
+     * @return  array   List of Core_Section and/or Core_Module
+     */
+    public function get_children()
+    {
+        return $this->_children;
     }
 }

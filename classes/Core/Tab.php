@@ -24,8 +24,8 @@ class Core_Tab extends Core_GetterSetter
     /**
      * Constructor
      *
-     * @param   string  $name   Tab name
-     * @param   object  $config Configuration object
+     * @param   string              $name       Tab name
+     * @param   SimpleXMLElement    $config     Configuration XML
      */
     public function __construct($name, $config)
     {
@@ -33,7 +33,8 @@ class Core_Tab extends Core_GetterSetter
         
         // Initialize sections
         $this->_sections = array();
-        foreach ($config as $sectionName => $sectionConfig) {
+        foreach ($config->children() as $sectionConfig) {
+            $sectionName = $sectionConfig['name'];
             $section = new Core_Section($sectionName, $sectionConfig);
             $this->_sections[] = $section;
         }

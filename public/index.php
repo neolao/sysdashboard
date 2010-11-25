@@ -1,10 +1,39 @@
 <?php
 require dirname(__FILE__).'/../bootstrap.php';
 $application = Application::getInstance();
-$application->addTabs(CONFIG_PATH.'/tabs.json');
+$application->addTabs(CONFIG_PATH.'/tabs.xml');
 
 $tabCount = count($application->tabs);
 
+function renderChildren($children)
+{
+    foreach ($children as $child) {
+        if ($child instanceof Core_Section) {
+            $section = $child;
+            $style = $section->style;
+            $class = 'layout_'.$section->layout;
+            if (!empty($style)) {
+                $class .= ' '.$style;
+            }
+            echo '<section class="', $class, '">';
+            echo '<h1>', $section->name, '</h1>';
+            renderChildren($section->children);
+            echo '</section>';
+        } else if ($child instanceof Core_Module) {
+            $module = $child;
+            $moduleStyle = $module->getStyle();
+            echo '<div class="module"';
+            if (!empty($moduleStyle)) {
+                echo ' style="', $moduleStyle, '">';
+            } else {
+                echo '>';
+            }
+            echo $module->getHTML();
+            echo '</div>';
+        }
+        echo ' ';
+    }
+}
 ?><!DOCTYPE html>
 <html>
     <head>
@@ -42,26 +71,7 @@ $tabCount = count($application->tabs);
                 echo '>';
             }
             echo '<h1>', $tab->name, '</h1>';
-            foreach ($tab->sections as $section) {
-                echo '<section class="layout_', $section->layout, '">';
-                echo '<h1>', $section->name, '</h1>';
-                foreach ($section->moduleNames as $moduleName) {
-                    $module = $application->modules[$moduleName];
-                    if ($module instanceof Core_Module) {
-                        $moduleStyle = $module->getStyle();
-                        echo '<div class="module"';
-                        if (!empty($moduleStyle)) {
-                            echo ' style="', $moduleStyle, '">';
-                        } else {
-                            echo '>';
-                        }
-                        echo $module->getHTML();
-                        echo '</div>';
-                    }
-                }
-                echo '<footer></footer>';
-                echo '</section>';
-            }
+            renderChildren($tab->sections);
             echo '</article>';
         }
         ?>

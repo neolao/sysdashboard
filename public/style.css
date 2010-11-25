@@ -55,17 +55,39 @@ article.selected {
 
 section {
     display: block;
+    clear: both;
+}
+
+/* SECTION LAYOUTS */
+section.layout_horizontal {
+}
+    section.layout_horizontal > * {
+        display: inline-block;
+        margin: 0 1em 1em 0;
+    }
+    section.layout_horizontal > h1 {
+        display: none;
+    }
+
+section.layout_vertical {
+}
+    section.layout_vertical > * {
+        display: block;
+        margin: 0 0 1em 0;
+    }
+    section.layout_vertical > h1 {
+        display: none;
+    }
+
+/* SECTION STYLES */
+section.fieldset {
     padding: 1.4em .7em .7em .7em;
     margin: 0 0 1em 0;
     position: relative;
     border: solid 2px #ddd;
-    clear: both;
 }
-section.layout_floatLeft .module {
-    float: left;
-    margin-right: 1em;
-}
-    section > h1 {
+    section.fieldset > h1 {
+        display: block;
         margin: 0;
         padding: 0 .5em;
         font-size: 1em;
@@ -75,11 +97,8 @@ section.layout_floatLeft .module {
         color: #666;
         border: solid 2px #ddd;
     }
-    section > footer {
-        display: block;
-        clear: both;
-    }
 
+/* MODULES */
 .module {
     display: block;
 }
