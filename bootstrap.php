@@ -1,6 +1,7 @@
 <?php
 // Constants
 define('BASE_PATH',     dirname(__FILE__));
+define('LIB_PATH',      BASE_PATH.'/lib');
 define('CLASSES_PATH',  BASE_PATH.'/classes');
 define('CONFIG_PATH',   BASE_PATH.'/config');
 define('MODULES_PATH',  BASE_PATH.'/modules');

@@ -54,7 +54,8 @@ class Core_Module extends Core_GetterSetter
     public function getData()
     {
         if (file_exists($this->_dataFilePath)) {
-            return file_get_contents($this->_dataFilePath);
+            $data = file_get_contents($this->_dataFilePath);
+            return json_decode($data);
         }
         return null;
     }
@@ -66,6 +67,7 @@ class Core_Module extends Core_GetterSetter
      */
     public function setData($data)
     {
+        $data = json_encode($data);
         file_put_contents($this->_dataFilePath, $data);
     }
 

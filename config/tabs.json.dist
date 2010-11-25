@@ -3,7 +3,7 @@
     {
         "Section 1":
         {
-            "layout":"float",
+            "layout":"floatLeft",
             "modules":["myText"]
         },
         "Section 2":

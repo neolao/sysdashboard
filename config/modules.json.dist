@@ -1,7 +1,7 @@
 {
-    "myText":
+    "myPie":
     {
-        "type":"Module_Text",
-        "text":"Hello world!"
+        "type":"Module_PieChart",
+        "label":"Disk usage"
     }
 }

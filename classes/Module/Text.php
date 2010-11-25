@@ -33,11 +33,11 @@ class Module_Text extends Core_Module
 
         // Initialize content
         if (isset($config->text)) {
-            $this->_text = $config->text;
+            $this->_text = (string) $config->text;
         } else {
             $this->_text = '';
         }
-        $data = parent::getData();
+        $data = (string) parent::getData();
         if (!empty($data)) {
             $this->_text = $data;
         }

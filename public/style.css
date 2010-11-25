@@ -1,5 +1,6 @@
 * {
     font-family: monospace;
+    margin: 0;
 }
 html, body {
     margin: 0;
@@ -43,7 +44,7 @@ nav {
 
 article {
     display: none;
-    padding: 5px;
+    padding: 1.5em 5px 5px 5px;
 }
 article.selected {
     display: block;

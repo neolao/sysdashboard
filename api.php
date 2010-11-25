@@ -45,6 +45,10 @@ switch ($action) {
             die("Data is required\n");
         }
         $data = array_shift($arguments);
+        $data = json_decode($data);
+        if ($data === null) {
+            die("Data is not a JSON\n");
+        }
         $module->setData($data);
         break;
 
