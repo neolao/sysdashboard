@@ -18,7 +18,6 @@ class Util_Image
             throw new Exception('Cannot create new image '.$width.'x'.$height);
         }
         imagesavealpha($resource, true);
-        imageantialias($resource, false);
         $transparent = imagecolorallocatealpha($resource, 0, 0, 0, 127);
         imagefill($resource, 0, 0, $transparent);
         
