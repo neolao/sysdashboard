@@ -1,0 +1,140 @@
+<?php
+/**
+ * HTML view
+ */
+class View_Html extends Core_View
+{
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+    
+    /**
+     * Display the error and quit
+     * 
+     * @param   string  $message    The error message
+     */
+    public function renderError($message)
+    {
+        header('Content-Type: text/html');
+        // TODO html content
+        echo $message;
+        exit;
+    }
+    
+    /**
+     * Display the application
+     */
+    public function render()
+    {
+        try {
+            $content = $this->_getHTML();
+            
+            header('Content-Type: text/html');
+            echo $content;
+            exit;
+        } catch (Exception $error) {
+            $this->renderError($error->getMessage());
+        }
+    }
+    
+    /**
+     * Get the HTML content
+     * 
+     * @return  string  The HTML content
+     */
+    private function _getHTML()
+    {
+        $application = Application::getInstance();
+        $tabCount = count($application->tabs);
+        
+        // Start document
+        $content = '<!DOCTYPE html>
+        <html>
+            <head>
+                <title>'.$application->title.'</title>
+                <meta charset="utf-8" />
+                <link rel="stylesheet" type="text/css" href="style.css"/>
+                <script type="text/javascript" src="ui.js"></script>
+            </head>
+            <body>';
+        
+        // Start header
+        $content .= '<header><h1>'.$application->title.'</h1>';
+        
+        // Tabs
+        $content .= '<nav id="tabs" role="primary navigation"><ul>';
+        for ($index = 0; $index < $tabCount; $index++) {
+            $tab = $application->tabs[$index];
+            if ($index === 0) {
+                $content .= '<li class="selected">';
+            } else {
+                $content .= '<li>';
+            }
+            $content .= '<a href="#tab'.$index.'" rel="tab'.$index.'" onClick="changeTab(\'tab'.$index.'\')">'.$tab->name.'</a></li>'."\n";
+        }
+        $content .= '</ul></nav>';
+        
+        // End header
+        $content .= '</header>';
+        
+        // Tab contents
+        for ($index= 0; $index < $tabCount; $index++) {
+            $tab = $application->tabs[$index];
+            $content .= '<article id="tab'.$index.'"';
+            if ($index === 0) {
+                $content .= ' class="selected">';
+            } else {
+                $content .= '>';
+            }
+            $content .= '<h1>'.$tab->name.'</h1>';
+            $content .= $this->_renderChildren($tab->sections);
+            $content .= '</article>';
+        }
+        
+        // End document
+        $content .= '</body></html>';
+        
+        return $content;
+    }
+    
+    /**
+     * Render children of type Core_Section and/or Core_Module
+     * 
+     * @param   array   $children   List
+     */
+    private function _renderChildren($children)
+    {
+        $content = '';
+        foreach ($children as $child) {
+            if ($child instanceof Core_Section) {
+                $section = $child;
+                $style = $section->style;
+                $class = 'layout_'.$section->layout;
+                if (!empty($style)) {
+                    $class .= ' '.$style;
+                }
+                $content .= '<section class="'.$class.'">';
+                $content .= '<h1>'.$section->name.'</h1>';
+                $content .= $this->_renderChildren($section->children);
+                $content .= '</section>';
+            } else if ($child instanceof Core_Module) {
+                $module = $child;
+                $moduleStyle = $module->getStyle();
+                $content .= '<div class="module"';
+                if (!empty($moduleStyle)) {
+                    $content .= ' style="'.$moduleStyle.'">';
+                } else {
+                    $content .= '>';
+                }
+                $content .= $module->getHTML();
+                $content .= '</div>';
+            }
+            $content .= ' ';
+        }
+        return $content;
+    }
+}

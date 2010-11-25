@@ -5,6 +5,13 @@
 class Application extends Core_GetterSetter
 {
     /**
+     * Constant for the HTML view
+     * 
+     * @var string
+     */
+    const HTML_VIEW = 'HTML_VIEW';
+    
+    /**
      * The singleton instance
      *
      * @var Application
@@ -31,17 +38,32 @@ class Application extends Core_GetterSetter
      * @var array
      */
     private $_tabs;
+    
+    /**
+     * View type
+     * 
+     * @var string
+     */
+    private $_viewType;
+    
+    /**
+     * View instance
+     * 
+     * @var Core_View
+     */
+    private $_view;
 
 
 
     /**
      * Constructor
      */
-    private function __constructor()
+    private function __construct()
     {
         $this->_title = 'SYS DASHBOARD';
         $this->_modules = array();
         $this->_tabs = array();
+        $this->viewType = self::HTML_VIEW;
     }
 
     /**
@@ -61,7 +83,7 @@ class Application extends Core_GetterSetter
     /**
      * The application name
      *
-     * @return  string  The application name
+     * @var string
      */
     public function get_title()
     {
@@ -71,7 +93,7 @@ class Application extends Core_GetterSetter
     /**
      * Module list
      *
-     * @return  array  Module list
+     * @var array
      */
     public function get_modules()
     {
@@ -81,13 +103,46 @@ class Application extends Core_GetterSetter
     /**
      * Tab list
      *
-     * @return  array  Tab list
+     * @var array
      */
     public function get_tabs()
     {
         return $this->_tabs;
     }
-
+    
+    /**
+     * View type
+     * 
+     * @var string
+     */
+    public function get_viewType()
+    {
+        return $this->_viewType;
+    }
+    public function set_viewType($value)
+    {
+        switch ($value) {
+            case self::HTML_VIEW:
+                $view = new View_Html();
+                break;
+            default:
+                return;
+        }
+        $this->_viewType = $value;
+        $this->_view = $view;
+        set_error_handler(array($view, 'errorHandler'));
+    }
+    
+    /**
+     * View instance
+     * 
+     * @var Core_View
+     */    
+    public function get_view()
+    {
+        return $this->_view;
+    }
+    
     /**
      * Initialize the application
      *
@@ -96,17 +151,21 @@ class Application extends Core_GetterSetter
      */
     public function initialize($filePath)
     {
-        if (!file_exists($filePath)) {
-            throw new Exception("File does not exist $filePath");
-        }
+        try {
+            if (!file_exists($filePath)) {
+                throw new Exception("File does not exist $filePath");
+            }
 
-        // Get the configuration content and unserialize it
-        $content = file_get_contents($filePath);
-        $json = json_decode($content);
+            // Get the configuration content and unserialize it
+            $content = file_get_contents($filePath);
+            $json = json_decode($content);
 
-        // Set the title
-        if (isset($json->title)) {
-            $this->_title = $json->title;
+            // Set the title
+            if (isset($json->title)) {
+                $this->_title = $json->title;
+            }
+        } catch (Exception $error) {
+            $this->view->renderError($error->getMessage());
         }
     }
 
@@ -118,32 +177,36 @@ class Application extends Core_GetterSetter
      */
     public function addModules($filePath)
     {
-        if (!file_exists($filePath)) {
-            throw new Exception("File does not exist $filePath");
-        }
+        try {
+            if (!file_exists($filePath)) {
+                throw new Exception("File does not exist $filePath");
+            }
 
-        // Get the configuration content and unserialize it
-        // TODO Check json content
-        $content = file_get_contents($filePath);
-        $json = json_decode($content);
+            // Get the configuration content and unserialize it
+            // TODO Check json content
+            $content = file_get_contents($filePath);
+            $json = json_decode($content);
 
-        foreach ($json as $moduleName => $moduleConfig) {
-            // If the type is not defined, then it continues
-            if (!isset($moduleConfig->type)) {
-                continue;
-            }
+            foreach ($json as $moduleName => $moduleConfig) {
+                // If the type is not defined, then it continues
+                if (!isset($moduleConfig->type)) {
+                    continue;
+                }
             
-            // If the type is not a class, then it continues
-            $moduleType = $moduleConfig->type;
-            if (!class_exists($moduleType)) {
-                continue;
-            }
+                // If the type is not a class, then it continues
+                $moduleType = $moduleConfig->type;
+                if (!class_exists($moduleType)) {
+                    continue;
+                }
             
-            // Initialize the module
-            $module = new $moduleType($moduleName, $moduleConfig);
-            if ($module instanceof Core_Module) {
-                $this->_modules[$module->name] = $module;
+                // Initialize the module
+                $module = new $moduleType($moduleName, $moduleConfig);
+                if ($module instanceof Core_Module) {
+                    $this->_modules[$module->name] = $module;
+                }
             }
+        } catch (Exception $error) {
+            $this->view->renderError($error->getMessage());
         }
     }
 
@@ -155,18 +218,22 @@ class Application extends Core_GetterSetter
      */
     public function addTabs($filePath)
     {
-        if (!file_exists($filePath)) {
-            throw new Exception("File does not exist $filePath");
-        }
+        try {
+            if (!file_exists($filePath)) {
+                throw new Exception("File does not exist $filePath");
+            }
 
-        // Get the configuration content and unserialize it
-        // TODO Check xml content
-        $xml = simplexml_load_file($filePath);
+            // Get the configuration content and unserialize it
+            // TODO Check xml content
+            $xml = simplexml_load_file($filePath);
 
-        foreach ($xml->children() as $tabXML) {
-            $tabName = $tabXML['name'];
-            $tab = new Core_Tab($tabName, $tabXML);
-            $this->_tabs[] = $tab;
+            foreach ($xml->children() as $tabXML) {
+                $tabName = $tabXML['name'];
+                $tab = new Core_Tab($tabName, $tabXML);
+                $this->_tabs[] = $tab;
+            }
+        } catch (Exception $error) {
+            $this->view->renderError($error->getMessage());
         }
     }
 }
