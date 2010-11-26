@@ -1,0 +1,15 @@
+{
+    "anonymous":
+    {
+        "login":            "guest",
+        "password":         "sha1"
+    }
+    "User name 1":
+    {
+        "login":            "neolao",
+        "password":         "sha1"
+        "apiToken":         "abcd",
+        "apiModuleAllowed": "*",
+        "apiModuleDenied" : null
+    }
+}

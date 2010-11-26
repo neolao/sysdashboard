@@ -1,4 +1,5 @@
 /config/general.json
+/config/acl.json
 /config/modules.json
 /config/tabs.xml
 .project
