@@ -31,15 +31,15 @@ class Module_PieChart extends Core_Module
         parent::__construct($name, $config);
         
         // Initialize pie diameter
-        if (isset($config->diameter)) {
-            $this->_diameter = (int) $config->diameter;
+        if (isset($config['diameter'])) {
+            $this->_diameter = (int) $config['diameter'];
         } else {
             $this->_diameter = 30;
         }
         
         // Initialize label
-        if (isset($config->label)) {
-            $this->_label = (string) $config->label;
+        if (isset($config['label'])) {
+            $this->_label = (string) $config['label'];
         } else {
             $this->_label = '';
         }

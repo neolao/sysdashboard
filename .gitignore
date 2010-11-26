@@ -1,6 +1,6 @@
-/config/general.json
-/config/acl.json
-/config/modules.json
+/config/general.ini
+/config/acl.ini
+/config/modules.ini
 /config/tabs.xml
 .project
 .settings

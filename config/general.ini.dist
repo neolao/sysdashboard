@@ -1,0 +1,6 @@
+; Application title
+title           = SYS DASHBOARD
+
+; Authentication flag
+authRequired    = false
+

@@ -1,0 +1,4 @@
+[myPie]
+type    = Module_PieChart
+label   = Disk usage
+

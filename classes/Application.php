@@ -157,21 +157,18 @@ class Application extends Core_GetterSetter
                 throw new Exception("File does not exist $filePath");
             }
 
-            // Get the configuration content and unserialize it
-            // TODO Check json content
-            $content = file_get_contents($filePath);
-            $json = json_decode($content);
+            // Get the configuration content
+            $config = parse_ini_file($filePath);
 
             // Set the title
-            if (isset($json->title)) {
-                $this->_title = $json->title;
+            if (isset($config['title'])) {
+                $this->_title = $config['title'];
             }
 
             // Set ACL rules
             // TODO Check json content
             if (isset($aclFilePath) && file_exists($aclFilePath)) {
-                $aclContent = file_get_contents($aclFilePath);
-                $acl = json_decode($aclContent);
+                $acl = parse_ini_file($aclFilePath);
                 //$this->_acl = $acl;
             }
         } catch (Exception $error) {
@@ -192,19 +189,17 @@ class Application extends Core_GetterSetter
                 throw new Exception("File does not exist $filePath");
             }
 
-            // Get the configuration content and unserialize it
-            // TODO Check json content
-            $content = file_get_contents($filePath);
-            $json = json_decode($content);
+            // Get the configuration content
+            $config = parse_ini_file($filePath, true);
 
-            foreach ($json as $moduleName => $moduleConfig) {
+            foreach ($config as $moduleName => $moduleConfig) {
                 // If the type is not defined, then it continues
-                if (!isset($moduleConfig->type)) {
+                if (!isset($moduleConfig['type'])) {
                     continue;
                 }
             
                 // If the type is not a class, then it continues
-                $moduleType = $moduleConfig->type;
+                $moduleType = $moduleConfig['type'];
                 if (!class_exists($moduleType)) {
                     continue;
                 }
