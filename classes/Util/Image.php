@@ -1,6 +1,8 @@
 <?php
 /**
  * Image utils
+ * 
+ * TODO Create adapters for GD and Imagick
  */
 class Util_Image
 {
@@ -13,7 +15,7 @@ class Util_Image
      */
     public static function createEmptyImage($width, $height)
     {
-        $resource = @imagecreatetruecolor($width, $height);
+        $resource = imagecreatetruecolor($width, $height);
         if ($resource === false) {
             throw new Exception('Cannot create new image '.$width.'x'.$height);
         }

@@ -84,14 +84,30 @@ class Chart_Pie extends Core_GetterSetter
         $startDegree = -90;
         for ($index = 0; $index < $count; $index++) {
             $percentValue = $this->_percentValues[$index];
+            
+            // The value cannot be equal to zero
+            if ($percentValue == 0) {
+                continue;
+            }
+            
+            // Find the end degree
             $endDegree = $startDegree + 360 / 100 * $percentValue;
+            
+            // Find the color fill
             $color = $this->_colors[$index % $colorCount];
+            
+            // Draw
             Util_Image::drawFilledArc($resource, $center, $center, $this->_size, $startDegree, $endDegree, $color);
+            
+            // Save the new start degree
             $startDegree = $endDegree;
         }
         
         // Generate the file
-        imagepng($resource, $filePath);
+        $result = imagepng($resource, $filePath);
         imagedestroy($resource);
+        if ($result === false) {
+            throw new Exception("Unable to create $filePath");
+        }
     }
 }

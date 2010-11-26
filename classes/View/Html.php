@@ -20,8 +20,19 @@ class View_Html extends Core_View
     public function renderError($message)
     {
         header('Content-Type: text/html');
-        // TODO html content
-        echo $message;
+        
+        $content = '<!DOCTYPE html>
+        <html>
+            <head>
+                <title>Error</title>
+                <meta charset="utf-8" />
+                <link rel="stylesheet" type="text/css" href="style.css"/>
+            </head>
+            <body class="error">
+                <p>'.$this->_sanitize($message).'</p>
+            </body>
+        </html>';
+        echo $content;
         exit;
     }
     
@@ -42,6 +53,16 @@ class View_Html extends Core_View
     }
     
     /**
+     * Sanitize a text for a html content
+     * 
+     * @param   string  $text   The text to sanitize
+     */
+    private function _sanitize($text)
+    {
+        return htmlspecialchars($text, ENT_NOQUOTES, 'UTF-8');
+    }
+    
+    /**
      * Get the HTML content
      * 
      * @return  string  The HTML content
@@ -55,7 +76,7 @@ class View_Html extends Core_View
         $content = '<!DOCTYPE html>
         <html>
             <head>
-                <title>'.$application->title.'</title>
+                <title>'.$this->_sanitize($application->title).'</title>
                 <meta charset="utf-8" />
                 <link rel="stylesheet" type="text/css" href="style.css"/>
                 <script type="text/javascript" src="ui.js"></script>
@@ -63,7 +84,7 @@ class View_Html extends Core_View
             <body>';
         
         // Start header
-        $content .= '<header><h1>'.$application->title.'</h1>';
+        $content .= '<header><h1>'.$this->_sanitize($application->title).'</h1>';
         
         // Tabs
         $content .= '<nav id="tabs" role="primary navigation"><ul>';
@@ -90,7 +111,7 @@ class View_Html extends Core_View
             } else {
                 $content .= '>';
             }
-            $content .= '<h1>'.$tab->name.'</h1>';
+            $content .= '<h1>'.$this->_sanitize($tab->name).'</h1>';
             $content .= $this->_renderChildren($tab->sections);
             $content .= '</article>';
         }
@@ -118,7 +139,7 @@ class View_Html extends Core_View
                     $class .= ' '.$style;
                 }
                 $content .= '<section class="'.$class.'">';
-                $content .= '<h1>'.$section->name.'</h1>';
+                $content .= '<h1>'.$this->_sanitize($section->name).'</h1>';
                 $content .= $this->_renderChildren($section->children);
                 $content .= '</section>';
             } else if ($child instanceof Core_Module) {

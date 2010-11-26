@@ -7,6 +7,14 @@ html, body {
     padding: 0;
 }
 
+body.error {
+    background-color: #f00;
+    color: #fff;
+}
+    body.error a {
+        color: #ff0;
+    }
+
 header {
     display: block;
     background-color: #507AAA;
