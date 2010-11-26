@@ -36,11 +36,12 @@ class Core_Section extends Core_GetterSetter
 
     /**
      * Constructor
-     *
-     * @param   string              $name       Section name
-     * @param   SimpleXMLElement    $config     Configuration XML
+     * 
+     * @param   Application         $application    Application instance
+     * @param   string              $name           Section name
+     * @param   SimpleXMLElement    $config         Configuration XML
      */
-    public function __construct($name, $config)
+    public function __construct(Application $application, $name, $config)
     {
         $this->_name = $name;
 
@@ -59,7 +60,6 @@ class Core_Section extends Core_GetterSetter
         }
 
         // Initialize children
-        $application = Application::getInstance();
         $this->_children = array();
         foreach ($config->children() as $child) {
             $childType = $child->getName();
@@ -73,7 +73,7 @@ class Core_Section extends Core_GetterSetter
                     $this->_children[] = $module;
                 }
             } else {
-                $section = new Core_Section($childName, $child);
+                $section = new Core_Section($application, $childName, $child);
                 $this->_children[] = $section;
             }
         }

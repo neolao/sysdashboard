@@ -26,10 +26,11 @@ class Core_Module extends Core_GetterSetter
     /**
      * Constructor
      * 
-     * @param   string  $name   Module name
-     * @param   Object  $config Module config
+     * @param   Application     $application    Application instance
+     * @param   string          $name           Module name
+     * @param   Object          $config         Module config
      */
-    public function __construct($name, $config)
+    public function __construct(Application $application, $name, $config)
     {
         $this->_name = $name;
         $this->_dataFilePath = DATA_PATH.'/'.$this->_name;

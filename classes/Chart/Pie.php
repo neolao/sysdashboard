@@ -43,7 +43,7 @@ class Chart_Pie extends Core_GetterSetter
     {
         $this->_size = $size;
         $this->_percentValues = array();
-        $this->_undefinedValueColor = 0xDDDDDDFF;
+        $this->_undefinedValueColor = 0xCCCCCCFF;
         $this->_colors = array(
             0x0000FFFF,
             0x00FF00FF,

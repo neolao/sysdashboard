@@ -6,10 +6,12 @@ class View_Html extends Core_View
 {
     /**
      * Constructor
+     * 
+     * @param   Application     $application    Application instance
      */
-    public function __construct()
+    public function __construct(Application $application)
     {
-        parent::__construct();
+        parent::__construct($application);
     }
     
     /**
@@ -69,14 +71,13 @@ class View_Html extends Core_View
      */
     private function _getHTML()
     {
-        $application = Application::getInstance();
-        $tabCount = count($application->tabs);
+        $tabCount = count($this->_application->tabs);
         
         // Start document
         $content = '<!DOCTYPE html>
         <html>
             <head>
-                <title>'.$this->_sanitize($application->title).'</title>
+                <title>'.$this->_sanitize($this->_application->title).'</title>
                 <meta charset="utf-8" />
                 <link rel="stylesheet" type="text/css" href="style.css"/>
                 <script type="text/javascript" src="ui.js"></script>
@@ -84,12 +85,12 @@ class View_Html extends Core_View
             <body>';
         
         // Start header
-        $content .= '<header><h1>'.$this->_sanitize($application->title).'</h1>';
+        $content .= '<header><h1>'.$this->_sanitize($this->_application->title).'</h1>';
         
         // Tabs
         $content .= '<nav id="tabs" role="primary navigation"><ul>';
         for ($index = 0; $index < $tabCount; $index++) {
-            $tab = $application->tabs[$index];
+            $tab = $this->_application->tabs[$index];
             if ($index === 0) {
                 $content .= '<li class="selected">';
             } else {
@@ -104,7 +105,7 @@ class View_Html extends Core_View
         
         // Tab contents
         for ($index= 0; $index < $tabCount; $index++) {
-            $tab = $application->tabs[$index];
+            $tab = $this->_application->tabs[$index];
             $content .= '<article id="tab'.$index.'"';
             if ($index === 0) {
                 $content .= ' class="selected">';

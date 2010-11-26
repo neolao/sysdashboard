@@ -9,19 +9,21 @@ class Util_Image
     /**
      * Create an empty image resource
      * 
-     * @param   int         $width      Image width
-     * @param   int         $height     Image height
-     * @return  resource                Image resource
+     * @param   int         $width              Image width
+     * @param   int         $height             Image height
+     * @param   int         $backgroundColor    RGBA color
+     * @return  resource                        Image resource
      */
-    public static function createEmptyImage($width, $height)
+    public static function createEmptyImage($width, $height, $backgroundColor=0x00000000)
     {
         $resource = imagecreatetruecolor($width, $height);
         if ($resource === false) {
             throw new Exception('Cannot create new image '.$width.'x'.$height);
         }
+        list($red, $green, $blue, $alpha) = Util_Image::color2rgba($backgroundColor);
         imagesavealpha($resource, true);
-        $transparent = imagecolorallocatealpha($resource, 0, 0, 0, 127);
-        imagefill($resource, 0, 0, $transparent);
+        $backgroundColorIndex = imagecolorallocatealpha($resource, $red, $green, $blue, 127-$alpha/2);
+        imagefill($resource, 0, 0, $backgroundColorIndex);
         
         return $resource;
     }
@@ -37,7 +39,7 @@ class Util_Image
      */
     public static function drawFilledCircle($resource, $x, $y, $size, $color)
     {
-        Util_Image::drawFilledArc($resource, $x, $y, $size, 0, 360, $color);
+        Util_Image::drawFilledArc($resource, $x, $y, $size, 0, 0, $color);
     }
     
     /**
@@ -55,7 +57,7 @@ class Util_Image
     {
         // Create a temporary image, in order to antialiase
         $tempSize = $size * 2 + 1;
-        $tempCenter = $size;
+        $tempCenter = floor($tempSize / 2);
         $temp = Util_Image::createEmptyImage($tempSize, $tempSize);
         
         // Create the color value

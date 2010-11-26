@@ -12,13 +12,6 @@ class Application extends Core_GetterSetter
     const HTML_VIEW = 'HTML_VIEW';
     
     /**
-     * The singleton instance
-     *
-     * @var Application
-     */
-    private static $_instance;
-
-    /**
      * Application title
      *
      * @var string
@@ -58,26 +51,12 @@ class Application extends Core_GetterSetter
     /**
      * Constructor
      */
-    private function __construct()
+    public function __construct()
     {
         $this->_title = 'SYS DASHBOARD';
         $this->_modules = array();
         $this->_tabs = array();
         $this->viewType = self::HTML_VIEW;
-    }
-
-    /**
-     * Get the singleton instance
-     *
-     * @return  Application
-     */
-    public static function getInstance()
-    {
-        if (!isset(self::$_instance)) {
-            $class = __CLASS__;
-            self::$_instance = new $class();
-        }
-        return self::$_instance;
     }
 
     /**
@@ -123,7 +102,7 @@ class Application extends Core_GetterSetter
     {
         switch ($value) {
             case self::HTML_VIEW:
-                $view = new View_Html();
+                $view = new View_Html($this);
                 break;
             default:
                 return;
@@ -205,7 +184,7 @@ class Application extends Core_GetterSetter
                 }
             
                 // Initialize the module
-                $module = new $moduleType($moduleName, $moduleConfig);
+                $module = new $moduleType($this, $moduleName, $moduleConfig);
                 if ($module instanceof Core_Module) {
                     $this->_modules[$module->name] = $module;
                 }
@@ -234,7 +213,7 @@ class Application extends Core_GetterSetter
 
             foreach ($xml->children() as $tabXML) {
                 $tabName = $tabXML['name'];
-                $tab = new Core_Tab($tabName, $tabXML);
+                $tab = new Core_Tab($this, $tabName, $tabXML);
                 $this->_tabs[] = $tab;
             }
         } catch (Exception $error) {

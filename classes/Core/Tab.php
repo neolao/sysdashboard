@@ -23,11 +23,12 @@ class Core_Tab extends Core_GetterSetter
 
     /**
      * Constructor
-     *
-     * @param   string              $name       Tab name
-     * @param   SimpleXMLElement    $config     Configuration XML
+     * 
+     * @param   Application         $application    Application instance
+     * @param   string              $name           Tab name
+     * @param   SimpleXMLElement    $config         Configuration XML
      */
-    public function __construct($name, $config)
+    public function __construct(Application $application, $name, $config)
     {
         $this->_name = $name;
         
@@ -35,7 +36,7 @@ class Core_Tab extends Core_GetterSetter
         $this->_sections = array();
         foreach ($config->children() as $sectionConfig) {
             $sectionName = $sectionConfig['name'];
-            $section = new Core_Section($sectionName, $sectionConfig);
+            $section = new Core_Section($application, $sectionName, $sectionConfig);
             $this->_sections[] = $section;
         }
     }

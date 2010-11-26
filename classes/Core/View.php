@@ -5,10 +5,20 @@
 class Core_View
 {
     /**
-     * Constructor
+     * Application instance
+     * 
+     * @var Application
      */
-    public function __construct()
+    protected $_application;
+    
+    /**
+     * Constructor
+     * 
+     * @param   Application     $application    Application instance
+     */
+    public function __construct(Application $application)
     {
+        $this->_application = $application;
     }
     
     /**

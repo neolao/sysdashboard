@@ -23,12 +23,13 @@ class Module_PieChart extends Core_Module
     /**
      * Constructor
      * 
-     * @param   string  $name   Module name
-     * @param   Object  $config Module config
+     * @param   Application     $application    Application instance
+     * @param   string          $name           Module name
+     * @param   Object          $config         Module config
      */
-    public function __construct($name, $config)
+    public function __construct(Application $application, $name, $config)
     {
-        parent::__construct($name, $config);
+        parent::__construct($application, $name, $config);
         
         // Initialize pie diameter
         if (isset($config['diameter'])) {
