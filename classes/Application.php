@@ -147,9 +147,10 @@ class Application extends Core_GetterSetter
      * Initialize the application
      *
      * @param   string      $filePath       Configuration file path
+     * @param   string      $aclFilePath    ACL file path
      * @throws  Exception                   Invalid configuration file
      */
-    public function initialize($filePath)
+    public function initialize($filePath, $aclFilePath = null)
     {
         try {
             if (!file_exists($filePath)) {
@@ -157,12 +158,21 @@ class Application extends Core_GetterSetter
             }
 
             // Get the configuration content and unserialize it
+            // TODO Check json content
             $content = file_get_contents($filePath);
             $json = json_decode($content);
 
             // Set the title
             if (isset($json->title)) {
                 $this->_title = $json->title;
+            }
+
+            // Set ACL rules
+            // TODO Check json content
+            if (isset($aclFilePath) && file_exists($aclFilePath)) {
+                $aclContent = file_get_contents($aclFilePath);
+                $acl = json_decode($aclContent);
+                //$this->_acl = $acl;
             }
         } catch (Exception $error) {
             $this->view->renderError($error->getMessage());
