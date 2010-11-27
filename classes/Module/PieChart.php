@@ -47,23 +47,23 @@ class Module_PieChart extends Core_Module
     }
 
     /**
-     * Set the module data
+     * Module data
      *
-     * @param  mixed   $data    New module data
+     * @var mixed
      */
-    public function setData($data)
+    public function set_data($value)
     {
         // Value list for the pie
-        if (is_array($data)) {
-            $percentValues = $data;
-        } else if (is_numeric($data)) {
-            $percentValues = array($data);
+        if (is_array($value)) {
+            $percentValues = $value;
+        } else if (is_numeric($value)) {
+            $percentValues = array($value);
         } else {
             throw new Exception('Invalid data');
         }
         
         // Save the data
-        parent::setData($data);
+        parent::set_data($value);
         
         // Generate pie image
         $this->_createPublicDirectory();
@@ -74,6 +74,7 @@ class Module_PieChart extends Core_Module
         }
         $pieChart->save($imagePath);
     }
+    
 
     /**
      * Get the HTML display of the module

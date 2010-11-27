@@ -48,11 +48,11 @@ class Core_Module extends Core_GetterSetter
     }
 
     /**
-     * Get the module data
+     * Module data
      *
-     * @return  mixed   Module data
+     * @var mixed
      */
-    public function getData()
+    public function get_data()
     {
         if (file_exists($this->_dataFilePath)) {
             $data = file_get_contents($this->_dataFilePath);
@@ -60,16 +60,10 @@ class Core_Module extends Core_GetterSetter
         }
         return null;
     }
-
-    /**
-     * Set the module data
-     *
-     * @param  mixed   $data    New module data
-     */
-    public function setData($data)
+    public function set_data($value)
     {
-        $data = json_encode($data);
-        file_put_contents($this->_dataFilePath, $data);
+        $json = json_encode($value);
+        file_put_contents($this->_dataFilePath, $json);
     }
 
     /**

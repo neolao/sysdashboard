@@ -28,28 +28,28 @@ class Module_Text extends Core_Module
         parent::__construct($application, $name, $config);
 
         // Initialize width
-        if (isset($config->width)) {
-            $this->_width = $config->width;
+        if (isset($config['width'])) {
+            $this->_width = $config['width'];
         }
 
         // Initialize content
-        if (isset($config->text)) {
-            $this->_text = (string) $config->text;
+        if (isset($config['text'])) {
+            $this->_text = (string) $config['text'];
         } else {
             $this->_text = '';
         }
-        $data = (string) parent::getData();
+        $data = (string) parent::get_data();
         if (!empty($data)) {
             $this->_text = $data;
         }
     }
 
     /**
-     * Get the module data
+     * Module data
      *
-     * @return  mixed   Module data
+     * @var mixed
      */
-    public function getData()
+    public function get_data()
     {
         return $this->_text;
     }

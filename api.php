@@ -26,8 +26,7 @@ switch ($action) {
             die("\"$moduleName\" is not a module\n");
         }
 
-        $data = $module->getData();
-        echo json_encode($data);
+        echo json_encode($module->data);
         break;
 
     // Set module data
@@ -50,7 +49,7 @@ switch ($action) {
         if ($data === null) {
             die("Data is not a JSON\n");
         }
-        $module->setData($data);
+        $module->data = $data;
         break;
 
     // Unknown action

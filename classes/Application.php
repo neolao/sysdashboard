@@ -12,6 +12,13 @@ class Application extends Core_GetterSetter
     const HTML_VIEW = 'HTML_VIEW';
     
     /**
+     * Constant for the API view
+     * 
+     * @var string
+     */
+    const API_VIEW = 'API_VIEW';
+    
+    /**
      * Application title
      *
      * @var string
@@ -62,6 +69,8 @@ class Application extends Core_GetterSetter
      */
     public function __construct($configFilePath)
     {
+        ini_set('html_errors', '0');
+        
         // Default values
         $this->_title = 'SYS DASHBOARD';
         $this->_modules = array();
@@ -139,6 +148,9 @@ class Application extends Core_GetterSetter
         switch ($value) {
             case self::HTML_VIEW:
                 $view = new View_Html($this);
+                break;
+            case self::API_VIEW:
+                $view = new View_Api($this);
                 break;
             default:
                 return;
