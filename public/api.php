@@ -18,6 +18,12 @@ function authError()
     exit;
 }
 
+// PHP_AUTH_USER is not set if PHP running as CGI
+if (!empty($_SERVER['HTTP_AUTHORIZATION'])) {
+    $httpAuthorization = $_SERVER['HTTP_AUTHORIZATION'];
+    $clearAuthorization = base64_decode(substr($httpAuthorization, 6));
+    list($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']) = explode(':', $clearAuthorization);
+}
 
 // If the login and password are not set, then it's over
 if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW'])) {
