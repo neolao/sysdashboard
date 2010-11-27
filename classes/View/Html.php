@@ -21,6 +21,7 @@ class View_Html extends Core_View
      */
     public function renderError($message)
     {
+        header('HTTP/1.0 500 Internal Servor Error');
         header('Content-Type: text/html');
         
         $content = '<!DOCTYPE html>
@@ -31,6 +32,7 @@ class View_Html extends Core_View
                 <link rel="stylesheet" type="text/css" href="style.css"/>
             </head>
             <body class="error">
+                <h1>An error occurred</h1>
                 <p>'.$this->_sanitize($message).'</p>
             </body>
         </html>';

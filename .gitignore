@@ -1,5 +1,5 @@
 /config/general.ini
-/config/acl.ini
+/config/users.ini
 /config/modules.ini
 /config/tabs.xml
 .project

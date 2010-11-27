@@ -45,18 +45,44 @@ class Application extends Core_GetterSetter
      * @var Core_View
      */
     private $_view;
+    
+    /**
+     * User list
+     * 
+     * @var array
+     */
+    private $_users;
 
 
 
     /**
      * Constructor
+     * 
+     * @param   string      $configFilePath Configuration file path
      */
-    public function __construct()
+    public function __construct($configFilePath)
     {
+        // Default values
         $this->_title = 'SYS DASHBOARD';
         $this->_modules = array();
         $this->_tabs = array();
         $this->viewType = self::HTML_VIEW;
+        
+        try {
+            if (!file_exists($configFilePath)) {
+                throw new Exception("File does not exist $configFilePath");
+            }
+
+            // Get the configuration content
+            $config = parse_ini_file($configFilePath);
+
+            // Set the title
+            if (isset($config['title'])) {
+                $this->_title = $config['title'];
+            }
+        } catch (Exception $error) {
+            $this->view->renderError($error->getMessage());
+        }
     }
 
     /**
@@ -87,6 +113,16 @@ class Application extends Core_GetterSetter
     public function get_tabs()
     {
         return $this->_tabs;
+    }
+    
+    /**
+     * User list
+     * 
+     * @var array
+     */
+    public function get_users()
+    {
+        return $this->_users;
     }
     
     /**
@@ -122,39 +158,6 @@ class Application extends Core_GetterSetter
         return $this->_view;
     }
     
-    /**
-     * Initialize the application
-     *
-     * @param   string      $filePath       Configuration file path
-     * @param   string      $aclFilePath    ACL file path
-     * @throws  Exception                   Invalid configuration file
-     */
-    public function initialize($filePath, $aclFilePath = null)
-    {
-        try {
-            if (!file_exists($filePath)) {
-                throw new Exception("File does not exist $filePath");
-            }
-
-            // Get the configuration content
-            $config = parse_ini_file($filePath);
-
-            // Set the title
-            if (isset($config['title'])) {
-                $this->_title = $config['title'];
-            }
-
-            // Set ACL rules
-            // TODO Check json content
-            if (isset($aclFilePath) && file_exists($aclFilePath)) {
-                $acl = parse_ini_file($aclFilePath);
-                //$this->_acl = $acl;
-            }
-        } catch (Exception $error) {
-            $this->view->renderError($error->getMessage());
-        }
-    }
-
     /**
      * Add modules
      *
@@ -211,10 +214,37 @@ class Application extends Core_GetterSetter
             // TODO Check xml content
             $xml = simplexml_load_file($filePath);
 
+            // Initialize each tab
             foreach ($xml->children() as $tabXML) {
                 $tabName = $tabXML['name'];
                 $tab = new Core_Tab($this, $tabName, $tabXML);
                 $this->_tabs[] = $tab;
+            }
+        } catch (Exception $error) {
+            $this->view->renderError($error->getMessage());
+        }
+    }
+    
+    /**
+     * Add users
+     *
+     * @param   string      $filePath       Configuration file path
+     * @throws  Exception                   Invalid configuration file
+     */
+    public function addUsers($filePath)
+    {
+        try {
+            if (!file_exists($filePath)) {
+                throw new Exception("File does not exist $filePath");
+            }
+
+            // Get the configuration content
+            $config = parse_ini_file($filePath, true);
+
+            // Initialize each user
+            foreach ($config as $login => $userConfig) {
+                $user = new Core_User($this, $login, $userConfig);
+                $this->_users[$login] = $user;
             }
         } catch (Exception $error) {
             $this->view->renderError($error->getMessage());

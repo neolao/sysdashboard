@@ -39,7 +39,7 @@ class Core_Section extends Core_GetterSetter
      * 
      * @param   Application         $application    Application instance
      * @param   string              $name           Section name
-     * @param   SimpleXMLElement    $config         Configuration XML
+     * @param   array               $config         Configuration
      */
     public function __construct(Application $application, $name, $config)
     {

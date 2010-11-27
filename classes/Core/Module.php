@@ -28,7 +28,7 @@ class Core_Module extends Core_GetterSetter
      * 
      * @param   Application     $application    Application instance
      * @param   string          $name           Module name
-     * @param   Object          $config         Module config
+     * @param   array           $config         Module configuration
      */
     public function __construct(Application $application, $name, $config)
     {

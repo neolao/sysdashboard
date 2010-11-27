@@ -1,8 +1,0 @@
-[anonymous]
-password            = sha1
-
-[neolao]
-password            = sha1
-apiToken            = abcd
-apiModuleAllowed    = *
-apiModuleDenied     = null
