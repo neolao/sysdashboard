@@ -1,5 +1,12 @@
-//window.onload = function(){
-//};
+window.onload = function(){
+    var search = new RegExp("#tab([0-9]+)");
+    var hash = window.location.hash;
+    var match = search.exec(hash);
+    if (match !== null) {
+        var tabId = match[1];
+        changeTab("tab"+tabId);
+    }
+};
 
 function changeTab(tabId)
 {
