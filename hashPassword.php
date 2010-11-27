@@ -9,4 +9,4 @@ if (empty($arguments)) {
 }
 $password = array_shift($arguments);
 
-echo sha1(password), "\n";
+echo sha1($password), "\n";
