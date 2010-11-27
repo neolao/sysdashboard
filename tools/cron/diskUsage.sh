@@ -11,6 +11,6 @@ auth=$2
 url=$3
 
 
-diskUsage=`df | grep sda1 | awk '{F=NF-1 ; print $F}' | tr -d '%'`
+diskUsage=`df | grep $disk | awk '{F=NF-1 ; print $F}' | tr -d '%'`
 
 $restClient $auth set $url "$diskUsage"
