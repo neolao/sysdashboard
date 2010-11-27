@@ -86,7 +86,7 @@ class Module_PieChart extends Core_Module
         $imagePath = $this->_publicDirectoryPath.'/pie.png';
         $imageURL = 'data/'.$this->_name.'/pie.png';
         if (!file_exists($imagePath)) {
-            $this->setData(0);
+            $this->data = 0;
         }
         
         return '<p><img src="'.$imageURL.'" style="vertical-align: middle"/> '.$this->_label.'</p>';
