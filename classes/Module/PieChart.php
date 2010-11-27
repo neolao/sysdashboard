@@ -89,6 +89,10 @@ class Module_PieChart extends Core_Module
             $this->data = 0;
         }
         
-        return '<p><img src="'.$imageURL.'" style="vertical-align: middle"/> '.$this->_label.'</p>';
+        $html = '<p>';
+        $html .= '<img title="'.$this->data.'%" alt="'.$this->data.'%" src="'.$imageURL.'" style="vertical-align: middle"/> ';
+        $html .= $this->_label;
+        $html .= '</p>';
+        return $html;
     }
 }
