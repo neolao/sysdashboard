@@ -68,6 +68,9 @@ class Core_Section extends Core_GetterSetter
                 $childName = (string) $child['name'];
             }
             if ($childType === 'module') {
+                if (!array_key_exists($childName, $application->modules)) {
+                    throw new Exception("Module \"$childName\" does not exist, check your configuration files");
+                }
                 $module = $application->modules[$childName];
                 if ($module instanceof Core_Module) {
                     $this->_children[] = $module;
