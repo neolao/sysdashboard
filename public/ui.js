@@ -8,6 +8,11 @@ window.onload = function(){
     }
 };
 
+/**
+ * Change tab
+ * 
+ * @param   int     tabId   Tab identifier
+ */
 function changeTab(tabId)
 {
     // Select the tab content

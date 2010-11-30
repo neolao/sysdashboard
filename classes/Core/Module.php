@@ -54,14 +54,20 @@ class Core_Module extends Core_GetterSetter
      */
     public function get_data()
     {
-        if (file_exists($this->_dataFilePath)) {
-            $data = file_get_contents($this->_dataFilePath);
-            return json_decode($data);
+        if (!file_exists($this->_dataFilePath)) {
+            return null;
         }
-        return null;
+        if (!is_readable($this->_dataFilePath)) {
+            throw new Exception("{$this->_dataFilePath} is not readable");
+        }
+        $data = file_get_contents($this->_dataFilePath);
+        return json_decode($data);
     }
     public function set_data($value)
     {
+        if (!is_writable($this->_dataFilePath)) {
+            throw new Exception("{$this->_dataFilePath} is not writable");
+        }
         $json = json_encode($value);
         file_put_contents($this->_dataFilePath, $json);
     }
@@ -91,8 +97,12 @@ class Core_Module extends Core_GetterSetter
      */
     protected function _createPublicDirectory()
     {
-        if (!is_dir($this->_publicDirectoryPath)) {
-            mkdir($this->_publicDirectoryPath, 0755, true);
+        if (is_dir($this->_publicDirectoryPath)) {
+            return;
         }
+        if (!is_writable($this->_publicDirectoryPath)) {
+            throw new Exception("Unable to create public directory: {$this->_publicDirectoryPath}");
+        }
+        mkdir($this->_publicDirectoryPath, 0755, true);
     }
 }
