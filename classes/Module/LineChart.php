@@ -45,7 +45,7 @@ class Module_LineChart extends Core_Module
         // Generate pie image
         $this->_createPublicDirectory();
         $imagePath = $this->_publicDirectoryPath.'/line.png';
-        $lineChart = new Chart_Line(100, 50);
+        $lineChart = new Chart_Line(200, 100);
         $lineChart->save($imagePath);
     }
     

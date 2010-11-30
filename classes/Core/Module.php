@@ -65,11 +65,11 @@ class Core_Module extends Core_GetterSetter
     }
     public function set_data($value)
     {
-        if (!is_writable($this->_dataFilePath)) {
+        $json = json_encode($value);
+        $result = @file_put_contents($this->_dataFilePath, $json);
+        if ($result === false) {
             throw new Exception("{$this->_dataFilePath} is not writable");
         }
-        $json = json_encode($value);
-        file_put_contents($this->_dataFilePath, $json);
     }
 
     /**
@@ -100,9 +100,9 @@ class Core_Module extends Core_GetterSetter
         if (is_dir($this->_publicDirectoryPath)) {
             return;
         }
-        if (!is_writable($this->_publicDirectoryPath)) {
+        $result = @mkdir($this->_publicDirectoryPath, 0755, true);
+        if ($result === false) {
             throw new Exception("Unable to create public directory: {$this->_publicDirectoryPath}");
         }
-        mkdir($this->_publicDirectoryPath, 0755, true);
     }
 }

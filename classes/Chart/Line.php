@@ -43,8 +43,7 @@ class Chart_Line extends Core_GetterSetter
         $resource = Util_Image::createEmptyImage($this->_width, $this->_height);
         
         // Generate the file
-        $result = imagepng($resource, $filePath);
-        chmod($filePath, 0777);
+        $result = @imagepng($resource, $filePath);
         imagedestroy($resource);
         if ($result === false) {
             throw new Exception("Unable to create $filePath");

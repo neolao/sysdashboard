@@ -104,8 +104,7 @@ class Chart_Pie extends Core_GetterSetter
         }
         
         // Generate the file
-        $result = imagepng($resource, $filePath);
-        chmod($filePath, 0777);
+        $result = @imagepng($resource, $filePath);
         imagedestroy($resource);
         if ($result === false) {
             throw new Exception("Unable to create $filePath");
