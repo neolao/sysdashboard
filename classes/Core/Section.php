@@ -68,6 +68,9 @@ class Core_Section extends Core_GetterSetter
                 $childName = (string) $child['name'];
             }
             if ($childType === 'module') {
+                if (empty($childName)) {
+                    throw new Exception("Module name required in tabs.ini");
+                }
                 if (!array_key_exists($childName, $application->modules)) {
                     throw new Exception("Module \"$childName\" does not exist, check your configuration files");
                 }

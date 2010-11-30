@@ -115,7 +115,11 @@ class View_Html extends Core_View
                 $content .= '>';
             }
             $content .= '<h1>'.$this->_sanitize($tab->name).'</h1>';
-            $content .= $this->_renderChildren($tab->sections);
+            if (count($tab->sections) === 0) {
+                $content .= '<p>Empty</p>';
+            } else {
+                $content .= $this->_renderChildren($tab->sections);
+            }
             $content .= '</article>';
         }
         

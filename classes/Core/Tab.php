@@ -30,11 +30,18 @@ class Core_Tab extends Core_GetterSetter
      */
     public function __construct(Application $application, $name, $config)
     {
+        if (empty($name)) {
+            throw new Exception("Tab name required");
+        }
         $this->_name = $name;
         
         // Initialize sections
         $this->_sections = array();
         foreach ($config->children() as $sectionConfig) {
+            $childType = $sectionConfig->getName();
+            if ($childType !== 'section') {
+                throw new Exception("The tab \"$name\" should contain sections");
+            }
             $sectionName = $sectionConfig['name'];
             $section = new Core_Section($application, $sectionName, $sectionConfig);
             $this->_sections[] = $section;
