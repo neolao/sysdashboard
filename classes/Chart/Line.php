@@ -42,6 +42,9 @@ class Chart_Line extends Core_GetterSetter
         // Initialize resource
         $resource = Util_Image::createEmptyImage($this->_width, $this->_height);
         
+        // Border
+        Util_Image::drawRectangle($resource, 0, 0, $this->_width, $this->_height, 0xCCCCCCFF);
+        
         // Generate the file
         $result = @imagepng($resource, $filePath);
         imagedestroy($resource);

@@ -29,6 +29,29 @@ class Util_Image
     }
     
     /**
+     * Draw a rectangle
+     * @param   resource    $resource   Image resource
+     * @param   int         $x          X coordinate of the top left corner
+     * @param   int         $y          Y coordinate of the top left corner
+     * @param   int         $width      Width
+     * @param   int         $height     Height
+     * @param   int         $color      RGBA color
+     * @param   int         $size       Line size
+     */
+    public static function drawRectangle($resource, $x, $y, $width, $height, $color, $size=1)
+    {
+        // Create the color value
+        list($red, $green, $blue, $alpha) = Util_Image::color2rgba($color);
+        $colorValue = imagecolorallocatealpha($resource, $red, $green, $blue, 127-$alpha/2);
+        
+        // Draw
+        imagefilledrectangle($resource, $x, $y, $x+$size-1, $y+$height-1, $colorValue);
+        imagefilledrectangle($resource, $x, $y, $x+$width-1, $y+$size-1, $colorValue);
+        imagefilledrectangle($resource, $x+$width-$size, $y, $x+$width-1, $y+$height-1, $colorValue);
+        imagefilledrectangle($resource, $x, $y+$height-$size, $x+$width-1, $y+$height-1, $colorValue);
+    }
+    
+    /**
      * Draw a filled circle
      * 
      * @param   resource    $resource   Image resource
