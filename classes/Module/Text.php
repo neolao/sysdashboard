@@ -6,11 +6,47 @@ class Module_Text extends Core_Module
 {
     /**
      * The text
+     *
+     * @var string
      */
     private $_text;
 
     /**
-     * Module width
+     * Font size in pixel
+     *
+     * @var int
+     */
+    private $_fontSize;
+
+    /**
+     * Font color (css format)
+     *
+     * Example: #ff000
+     *
+     * @var string
+     */
+    private $_fontColor;
+
+    /**
+     * Shadow radius in pixel
+     *
+     * @var int
+     */
+    private $_shadowRadius;
+
+    /**
+     * Shadow color (css format)
+     *
+     * Example: #ff000
+     *
+     * @var string
+     */
+    private $_shadowColor;
+
+    /**
+     * Module width in pixel
+     *
+     * @var int
      */
     private $_width;
     
@@ -26,6 +62,26 @@ class Module_Text extends Core_Module
     public function __construct(Application $application, $name, $config)
     {
         parent::__construct($application, $name, $config);
+
+        // Initialize font size
+        if (isset($config['fontSize'])) {
+            $this->_fontSize = (int) $config['fontSize'];
+        }
+
+        // Initialize font color
+        if (isset($config['fontColor'])) {
+            $this->_fontColor = $config['fontColor'];
+        }
+
+        // Initialize shadow radius
+        if (isset($config['shadowRadius'])) {
+            $this->_shadowRadius = $config['shadowRadius'];
+        }
+
+        // Initialize shadow color
+        if (isset($config['shadowColor'])) {
+            $this->_shadowColor = $config['shadowColor'];
+        }
 
         // Initialize width
         if (isset($config['width'])) {
@@ -71,11 +127,30 @@ class Module_Text extends Core_Module
      */
     public function getStyle()
     {
-        if (!empty($this->_width)) {
-            return 'width: '.$this->_width.'px';
+        $style = '';
+
+        if (!empty($this->_fontSize)) {
+            $style .= 'font-size: '.$this->_fontSize.'px;';
         }
 
-        return '';
+        if (!empty($this->_fontColor)) {
+            $style .= 'color: '.$this->_fontColor.';';
+        }
+
+        if (!empty($this->_shadowRadius)) {
+            $shadowColor = '#00000';
+            if (!empty($this->_shadowColor)) {
+                $shadowColor = $this->_shadowColor;
+            }
+            $style .= 'text-shadow: 0px 0px '.$this->_shadowRadius.'px '.$this->_shadowColor.';';
+            $style .= 'filter: dropshadow(color='.$this->_shadowColor.', offx=0, offy=0);';
+        }
+
+        if (!empty($this->_width)) {
+            $style .= 'width: '.$this->_width.'px;';
+        }
+
+        return $style;
     }
 
 }
