@@ -115,10 +115,11 @@ section {
 
 /* SECTION LAYOUTS */
 section.layout_horizontal {
+    letter-spacing: -1em;
 }
-    section.layout_horizontal > * {
+    section.layout_horizontal > .module, section.layout_horizontal > section {
         display: inline-block;
-        margin: 0 1em 1em 0;
+        letter-spacing: normal;
     }
     section.layout_horizontal > h1 {
         display: none;
@@ -126,9 +127,8 @@ section.layout_horizontal {
 
 section.layout_vertical {
 }
-    section.layout_vertical > * {
+    section.layout_vertical > .module, section.layout_vertical > section {
         display: block;
-        margin: 0 0 1em 0;
     }
     section.layout_vertical > h1 {
         display: none;
@@ -136,14 +136,13 @@ section.layout_vertical {
 
 /* SECTION STYLES */
 section.fieldset {
-    padding: 1.4em .7em .7em .7em;
-    margin: 0 0 1em 0;
+    padding: .7em 0 0 0;
     position: relative;
     border: solid 2px #ddd;
 }
     section.fieldset > h1 {
         display: block;
-        margin: 0;
+        margin: 0 0 0 .7em;
         padding: 0 .5em;
         font-size: 1em;
         position: absolute;
@@ -153,7 +152,15 @@ section.fieldset {
         border: solid 2px #ddd;
     }
 
+section.block {
+    border: outset 1px #eee;
+    background: #FCFCFC; /* old browsers */
+    background: -moz-linear-gradient(top, #FCFCFC 0%, #eeeeee 100%); /* firefox */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FCFCFC), color-stop(100%,#eeeeee)); /* webkit */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FCFCFC', endColorstr='#eeeeee',GradientType=0 ); /* ie */
+}
 /* MODULES */
 .module {
     display: block;
+    margin: .7em;
 }
