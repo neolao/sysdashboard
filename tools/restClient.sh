@@ -12,13 +12,15 @@ cat <<USAGE
 
 SYSDASHBOARD REST CLIENT
 ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
-┌——————————————————┬————————————————————————————————————————————————————————————————————————————————————————————┐
-│ Usage            │ restClient.sh auth method url [data]                                                       │
-├——————————————————┼————————————————————————————————————————————————————————————————————————————————————————————┤
-│ Example get data │ restClient.sh netrc get http://my.website/sysdashboard/api/module/myPie/data               │
-├——————————————————┼————————————————————————————————————————————————————————————————————————————————————————————┤
-│ Example set data │ restClient.sh login:password set http://my.website/sysdashboard/api/module/myPie/data "42" │
-└——————————————————┴————————————————————————————————————————————————————————————————————————————————————————————┘
+┌——————————————————┬———————————————————————————————————————————————————————————————————————————————————————————————————————┐
+│ Usage            │ restClient.sh auth method url [data]                                                                  │
+├——————————————————┼———————————————————————————————————————————————————————————————————————————————————————————————————————┤
+│ Example get data │ restClient.sh netrc get http://my.website/sysdashboard/api/module/myPie/data                          │
+├——————————————————┼———————————————————————————————————————————————————————————————————————————————————————————————————————┤
+│ Example set data │ restClient.sh login:password set http://my.website/sysdashboard/api/module/myPie/data "42"            │
+├——————————————————┼———————————————————————————————————————————————————————————————————————————————————————————————————————┤
+│ Example set data │ restClient.sh login:password set http://my.website/sysdashboard/api/module/myText/data @/path/to/data │
+└——————————————————┴———————————————————————————————————————————————————————————————————————————————————————————————————————┘
 USAGE
 }
 
@@ -44,7 +46,7 @@ fi
 
 if [ "$method" == "set" ]
 then
-    curl -X PUT $option --data $data $url
+    curl -X PUT $option --data-binary $data $url
     echo
     exit;
 fi
