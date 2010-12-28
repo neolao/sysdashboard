@@ -90,14 +90,9 @@ switch ($type) {
         }
         
         if ($method === 'GET') {
-            $json = json_encode($module->$property);
-            die($json);
+            die($module->$property);
         } else if ($method === 'PUT') {
             $data = file_get_contents('php://input');
-            $data = json_decode($data);
-            if ($data === null) {
-                die("Data is not a JSON\n");
-            }
             $module->$property = $data;
             die('OK');
         } else {

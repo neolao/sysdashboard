@@ -109,6 +109,13 @@ class Module_Text extends Core_Module
     {
         return $this->_text;
     }
+    public function set_data($value)
+    {
+        $result = @file_put_contents($this->_dataFilePath, $value);
+        if ($result === false) {
+            throw new Exception("{$this->_dataFilePath} is not writable");
+        }
+    }
 
     /**
      * Get the HTML display of the module

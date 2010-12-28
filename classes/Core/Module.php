@@ -66,6 +66,9 @@ class Core_Module extends Core_GetterSetter
     public function set_data($value)
     {
         $json = json_encode($value);
+        if ($json === null) {
+            throw new Exception("Data is not a JSON");
+        }
         $result = @file_put_contents($this->_dataFilePath, $json);
         if ($result === false) {
             throw new Exception("{$this->_dataFilePath} is not writable");
