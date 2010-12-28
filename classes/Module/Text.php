@@ -127,7 +127,7 @@ class Module_Text extends Core_Module
      */
     public function getStyle()
     {
-        $style = '';
+        $style = 'white-space: pre;';
 
         if (!empty($this->_fontSize)) {
             $style .= 'font-size: '.$this->_fontSize.'px;';
