@@ -1,5 +1,12 @@
 #!/bin/bash
 
+checkCurl=$(which curl)
+if [ "$checkCurl" = "" ]
+then
+    "cURL not found"
+    exit;
+fi
+
 usage() {
 cat <<USAGE
 
