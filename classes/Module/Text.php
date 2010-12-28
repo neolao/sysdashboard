@@ -94,9 +94,14 @@ class Module_Text extends Core_Module
         } else {
             $this->_text = '';
         }
-        $data = (string) parent::get_data();
-        if (!empty($data)) {
-            $this->_text = $data;
+        if (file_exists($this->_dataFilePath)) {
+            if (!is_readable($this->_dataFilePath)) {
+                throw new Exception("{$this->_dataFilePath} is not readable");
+            }
+            $data = file_get_contents($this->_dataFilePath);
+            if (!empty($data)) {
+                $this->_text = $data;
+            }
         }
     }
 
