@@ -178,3 +178,24 @@ section.blockWithTitle > h1 {
     display: block;
     margin: 10px;
 }
+
+.module table {
+    width: 100%;
+}
+.module table, .module th, .module td {
+    border: solid 1px #ccc;
+    border-collapse: collapse;
+    padding: .5em;
+}
+.module th {
+    text-align: left;
+    color: #fff;
+    background: #95A3A5; /* old browsers */
+    background: -moz-linear-gradient(top, #95A3A5 0%, #596a72 100%); /* firefox */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#95A3A5), color-stop(100%,#596a72)); /* webkit */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#95A3A5', endColorstr='#596a72',GradientType=0 ); /* ie */
+}
+.module td {
+    background-color: #fff;
+    color: #000;
+}
