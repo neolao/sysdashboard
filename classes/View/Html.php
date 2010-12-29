@@ -152,7 +152,7 @@ class View_Html extends Core_View
             } else if ($child instanceof Core_Module) {
                 $module = $child;
                 $moduleStyle = $module->getStyle();
-                $content .= '<div class="module"';
+                $content .= '<div class="module '.get_class($module).'"';
                 if (!empty($moduleStyle)) {
                     $content .= ' style="'.$moduleStyle.'">';
                 } else {

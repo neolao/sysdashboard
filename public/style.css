@@ -123,6 +123,8 @@ section.layout_horizontal {
     }
     section.layout_horizontal > h1 {
         display: none;
+        margin: 0;
+        letter-spacing: normal;
     }
 
 section.layout_vertical {
@@ -132,6 +134,7 @@ section.layout_vertical {
     }
     section.layout_vertical > h1 {
         display: none;
+        margin: 0;
     }
 
 /* SECTION STYLES */
@@ -139,6 +142,9 @@ section.fieldset {
     padding: .7em 0 0 0;
     position: relative;
     border: solid 2px #ddd;
+}
+section.fieldset + section.fieldset {
+    margin: 1em 0 0 0;
 }
     section.fieldset > h1 {
         display: block;
@@ -152,15 +158,23 @@ section.fieldset {
         border: solid 2px #ddd;
     }
 
-section.block {
+section.block, section.blockWithTitle {
     border: outset 1px #eee;
     background: #FCFCFC; /* old browsers */
     background: -moz-linear-gradient(top, #FCFCFC 0%, #eeeeee 100%); /* firefox */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FCFCFC), color-stop(100%,#eeeeee)); /* webkit */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FCFCFC', endColorstr='#eeeeee',GradientType=0 ); /* ie */
 }
+section.blockWithTitle > h1 {
+    display: block;
+    padding: 2px 10px 0 10px;
+    font-size: 1em;
+    color: #bbb;
+    text-shadow: 1px 1px 0 #fff;
+    font-family: "Arial Black", Arial, Helvetica, sans-serif;
+}
 /* MODULES */
 .module {
     display: block;
-    margin: .7em;
+    margin: 10px;
 }
