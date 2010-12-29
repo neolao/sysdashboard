@@ -116,6 +116,7 @@ section {
 /* SECTION LAYOUTS */
 section.layout_horizontal {
     letter-spacing: -1em;
+    vertical-align: top;
 }
     section.layout_horizontal > .module, section.layout_horizontal > section {
         display: inline-block;
