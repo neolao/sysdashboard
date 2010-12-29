@@ -125,7 +125,7 @@ class View_Html extends Core_View
         
         // End document
         $content .= '</body></html>';
-        
+         
         return $content;
     }
     
