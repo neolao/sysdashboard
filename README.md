@@ -91,11 +91,11 @@ API
 - Change the layout of a screen
 - Update the data of a widget
 - Send data to a worker
-- Trigger a worker
+
 
 More ?
 ------
 
 - Create a new type of widget
-- Create a new layout
+- Create a new type of layout
 
