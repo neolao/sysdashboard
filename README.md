@@ -11,7 +11,7 @@ Installation
 npm install -g sysdashboard
 sysdashboard board:create myboard
 cd myboard
-sysdashboard start 3333
+sysdashboard server:start 3333
 ```
 
 Widget

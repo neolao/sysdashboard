@@ -13,16 +13,18 @@
     },
     "bin": {
         "sysdashboard-node": "./node-harmony.sh",
-        "sysdashboard": "./bundle-es5/console.js"
+        "sysdashboard": "./bundle/console.js"
     },
     "main": "./bundle-es5/Sysdashboard.js",
     "dependencies": {
         "solfegejs"         : "1.4.*",
-        "solfegejs-cli"     : "1.3.*",
-        "babel-runtime"     : "5.6.15"
+        "solfegejs-cli"     : "1.4.*",
+        "solfegejs-server"  : "1.5.*",
+        "solfegejs-server-static"  : "0.2.*",
+        "babel-runtime"     : "5.6.*"
     },
     "devDependencies": {
-        "babel"         : "5.6.14"
+        "babel"         : "5.6.*"
     },
     "preferGlobal": true,
     "keywords": [
@@ -30,8 +32,9 @@
     ],
     "scripts"       :
     {
-        "console"       : "node --harmony --harmony-proxies ./bundle-es5/console.js",
-        "es6-watch"     : "node_modules/.bin/babel bundle-es6 --optional runtime --watch --out-dir bundle-es5"
+        "console"       : "node --harmony --harmony-proxies ./bundle/console.js",
+        "es6-watch"     : "babel bundle-es6 --blacklist regenerator --watch --out-dir bundle",
+        "es6-compile"   : "babel bundle-es6 --blacklist regenerator --out-dir bundle"
     }
 
 }
